@@ -26,18 +26,18 @@ export default function RecipesScreen({ route, navigation }) {
     return () => { mounted = false; };
   }, [cat]);
 
-  // simple search: either call the search API when there's text, or filter existing
+  // Búsqueda simple: llame a la API de búsqueda cuando haya texto o filtre el existente.
   useEffect(() => {
     let mounted = true;
     async function doSearch() {
       try {
         if (!search) {
-          // re-fetch category (simpler) or keep original
+          // volver a obtener la categoría (más simple) o mantener la original
           const data = await getRecipesByCategory(cat);
           if (mounted) setRecipes(data || []);
         } else {
           const data = await searchRecipes(search);
-          // if search returns recipes -> show them, else empty
+          // si la búsqueda devuelve recetas -> mostrarlas, de lo contrario vacías
           if (mounted) setRecipes(data || []);
         }
       } catch (e) {
